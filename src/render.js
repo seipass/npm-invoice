@@ -12,7 +12,7 @@ export function renderInvoice(report, { color = true } = {}) {
   lines.push(`${c.dim('resolved ')}  ${report.resolved}`);
   lines.push('');
   lines.push(`${c.bold('YOU ASKED FOR')}      ${c.green('1 package')}`);
-  lines.push(`${c.bold("YOU'RE GETTING")}    ${severity(t.packages, c, `${formatNumber(t.packages)} packages`)}`);
+  lines.push(`${c.bold("YOU'RE GETTING")}    ${severity(t.packages, c, `${formatNumber(t.packages)} ${pluralize(t.packages, 'package')}`)}`);
   lines.push('');
   lines.push(c.bold('DEPENDENCY BILL'));
   lines.push(c.dim('─'.repeat(52)));
@@ -58,6 +58,10 @@ function severity(packages, c, text) {
   if (packages >= 500) return c.red(text);
   if (packages >= 100) return c.yellow(text);
   return c.green(text);
+}
+
+function pluralize(value, singular) {
+  return value === 1 ? singular : `${singular}s`;
 }
 
 function formatNumber(value) {
