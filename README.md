@@ -1,8 +1,10 @@
 # npm-invoice
 
-**You asked for one package. How many are you actually taking home?**
+[![CI](https://github.com/seipass/npm-invoice/actions/workflows/ci.yml/badge.svg)](https://github.com/seipass/npm-invoice/actions/workflows/ci.yml)
 
-`npm-invoice` shows the dependency bill *before* you install an npm package.
+**You asked for 1 package. You're getting 69.**
+
+`npm-invoice` shows the dependency bill before you install an npm package. It reads registry metadata only: nothing is installed and no package scripts are executed.
 
 ```text
 $ npx npm-invoice express
@@ -10,29 +12,29 @@ $ npx npm-invoice express
 npm invoice
 ────────────────────────────────────────────────────
 requested  express@latest
-resolved   express@5.x.x
+resolved   express@5.2.1
 
 YOU ASKED FOR      1 package
-YOU'RE GETTING     60+ packages
+YOU'RE GETTING     69 packages
 
 DEPENDENCY BILL
 ────────────────────────────────────────────────────
-Transitive packages         ...
-Unpacked size               ...
-Files                       ...
-Install scripts             ...
-Deprecated packages         ...
-Inactive > 730d             ...
-Maximum depth               ...
+Transitive packages         68
+Unpacked size               2.06 MB
+Files                       602
+Install scripts             0
+Deprecated packages         0
+Inactive > 730d             14
+Maximum depth               6
 ────────────────────────────────────────────────────
 Peer dependencies are not included because they depend on the target project.
 ```
 
-The exact numbers come from the npm registry at runtime.
+That example was produced by the CLI against the npm registry on September 22, 2026. Registry contents change, so current numbers may differ.
 
 ## Why
 
-A one-line dependency can bring hundreds of packages, thousands of files, install-time scripts, deprecated modules, and a much larger disk footprint than the package name suggests.
+A one-line dependency can bring dozens or hundreds of packages, hundreds of files, install-time scripts, deprecated modules, and far more disk usage than the package name suggests.
 
 `npm-invoice` turns that hidden cost into one small receipt.
 
@@ -69,13 +71,15 @@ Other options:
 - Packages whose registry metadata has not changed within the inactivity threshold
 - Maximum dependency depth
 
-Regular dependencies and optional dependencies are included. Peer dependencies are reported separately by npm because their actual installation depends on the target project, so they are not added to the bill yet.
+Regular dependencies and optional dependencies are included. Peer dependencies are not added to the bill because their installation depends on the target project.
 
 Local, Git, workspace, and direct URL dependency specs are skipped and shown as a partial-result warning.
 
 ## How it works
 
-`npm-invoice` reads npm's abbreviated installation metadata, resolves version ranges, walks the dependency graph with bounded concurrency, deduplicates resolved package versions, and totals the registry-provided package metadata. It does not install the package and does not execute package scripts.
+`npm-invoice` reads npm's abbreviated installation metadata, resolves version ranges, walks the dependency graph with bounded concurrency, deduplicates resolved package versions, and totals the registry-provided package metadata.
+
+The inactivity number uses the registry's package-level `modified` timestamp. It is a quick maintenance signal, not the publish date of the exact resolved version.
 
 ## Development
 
@@ -85,7 +89,7 @@ npm test
 node ./bin/npm-invoice.js express
 ```
 
-Requires Node.js 20 or newer.
+Requires Node.js 20 or newer. CI runs the test suite and a live Express dependency-graph scan on Node.js 20, 22, and 24.
 
 ## License
 
