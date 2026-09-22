@@ -21,6 +21,6 @@ jobs:
       - run: npm install
       - run: npm test
       - run: node ./bin/npm-invoice.js express --no-color
-      - name: Verify pre-publish npx command
+      - name: Verify pre-publish GitHub command
         if: matrix.node == 24
-        run: npx --yes github:seipass/npm-invoice express --no-color
+        run: npx --yes --package=github:seipass/npm-invoice npm-invoice express --no-color
