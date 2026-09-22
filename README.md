@@ -6,8 +6,10 @@
 
 `npm-invoice` shows the dependency bill before you install an npm package. It reads registry metadata only: nothing is installed and no package scripts are executed.
 
+> `npm-invoice` is not published to the npm registry yet. Until the first npm release, run it directly from GitHub.
+
 ```text
-$ npx npm-invoice express
+$ npx --yes --package=github:seipass/npm-invoice npm-invoice express
 
 npm invoice
 ────────────────────────────────────────────────────
@@ -40,16 +42,24 @@ A one-line dependency can bring dozens or hundreds of packages, hundreds of file
 
 ## Usage
 
+Before the first npm release:
+
+```sh
+npx --yes --package=github:seipass/npm-invoice npm-invoice express
+npx --yes --package=github:seipass/npm-invoice npm-invoice react@19
+npx --yes --package=github:seipass/npm-invoice npm-invoice @types/node@22
+```
+
+After the package is published to npm, the shorter form will work:
+
 ```sh
 npx npm-invoice express
-npx npm-invoice react@19
-npx npm-invoice @types/node@22
 ```
 
 For machine-readable output:
 
 ```sh
-npx npm-invoice express --json
+npx --yes --package=github:seipass/npm-invoice npm-invoice express --json
 ```
 
 Other options:
