@@ -20,4 +20,4 @@ jobs:
           node-version: ${{ matrix.node }}
       - run: npm install
       - run: npm test
-      - run: node ./bin/npm-invoice.js semver --no-color
+      - run: node ./bin/npm-invoice.js express --no-color
