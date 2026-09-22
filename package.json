@@ -1,0 +1,40 @@
+{
+  "name": "npm-invoice",
+  "version": "0.1.0",
+  "description": "See the real dependency bill before you install an npm package.",
+  "type": "module",
+  "bin": {
+    "npm-invoice": "./bin/npm-invoice.js"
+  },
+  "exports": "./src/index.js",
+  "files": [
+    "bin",
+    "src"
+  ],
+  "scripts": {
+    "test": "node --test",
+    "invoice": "node ./bin/npm-invoice.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "keywords": [
+    "npm",
+    "dependencies",
+    "cli",
+    "security",
+    "package"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/seipass/npm-invoice.git"
+  },
+  "bugs": {
+    "url": "https://github.com/seipass/npm-invoice/issues"
+  },
+  "homepage": "https://github.com/seipass/npm-invoice#readme",
+  "dependencies": {
+    "semver": "^7.8.5"
+  }
+}
